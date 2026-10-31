@@ -1,0 +1,2 @@
+# 统一换行符,避免 Windows/Linux 之间反复产生 "无意义" 的 diff
+* text=auto eol=lf

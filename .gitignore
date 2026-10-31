@@ -1,0 +1,28 @@
+# ---- 构建产物 ----
+build/
+*.apk
+*.apk.idsig
+*.dex
+classes.txt
+
+# ---- 签名密钥(绝不入库)----
+# 泄露等于让别人能签出「你的手机认为是正版更新」的 APK
+*.keystore
+*.jks
+*.p12
+
+# ---- IDE / 编辑器 ----
+.idea/
+*.iml
+.vscode/
+*.swp
+*~
+
+# ---- 系统垃圾 ----
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ---- 生成的中间文件 ----
+# 由 tools 或脚本生成, 可再生
+assets/ipresolved.txt

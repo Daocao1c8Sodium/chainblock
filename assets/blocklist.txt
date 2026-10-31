@@ -1,0 +1,254 @@
+# =====================================================================
+#  内置拦截清单 (assets/blocklist.txt)
+#  由 DnsRules 读取。匹配规则:自身 + 逐级父域。
+#  例:"open.e.kuaishou.com" 会命中 "kuaishou.com"
+#  可在此增删, 也可以在 App 界面上增删(界面上的改动存在应用私有目录)。
+#
+#  白名单不在这里维护 —— 见 DomainRules.CRITICAL:
+#     iydsj.com / run.gxapp.iydsj.com / restsdk.amap.com
+#     updateinfo.market.xiaomi.com / sf0.market.xiaomi.com
+#     account.xiaomi.com / miui.com / xiaomi.com 等
+# =====================================================================
+
+# #####################################################################
+# ★★★ 核心打击区:小米应用商店 (com.xiaomi.market) ★★★
+#
+# 用户已明确授权: 商店"不好用没关系", 只要能在别的时间段手动更新 App。
+# 而运动世界(跑步/定位/成绩上传)完全不依赖小米商店的域名 —— 它只用
+# iydsj.com 与 restsdk.amap.com, 那两个在 DomainRules.CRITICAL 里受保护。
+#
+# 所以这里把商店除了"更新检查"以外的接口全部切断。
+#
+# 唯一保留的放行项(在 DomainRules.CRITICAL 里):
+#     updateinfo.market.xiaomi.com    ← 应用更新检查, 必须留
+# 注意: 白名单优先级更高, 所以下面即使写父域也不会误伤它 —— 但为安全起见
+#       这里仍逐条列具体子域, 不用笼统父域。
+# #####################################################################
+
+# --- 商店主 API / 详情页 / 推广 / 推荐(下载指令与广告都从这里下发) ---
+app.market.xiaomi.com
+ad.market.xiaomi.com
+promote.market.xiaomi.com
+recommend.market.xiaomi.com
+search.market.xiaomi.com
+api.market.xiaomi.com
+apm.market.xiaomi.com
+
+# --- 下载镜像 / 加速节点(实测每次安装前都会出现) ---
+t1.a.market.xiaomi.com
+t2.a.market.xiaomi.com
+t3.a.market.xiaomi.com
+t4.a.market.xiaomi.com
+t5.a.market.xiaomi.com
+pfga-accelerate.market.xiaomi.com
+
+# --- 商店基础数据 / 图片 CDN(实测供推荐卡片与广告图) ---
+#     如果发现"更新列表打不开", 把下面两条移到 App 界面的放行列表即可。
+data.market.xiaomi.com
+sf0.market.xiaomi.com
+sf1.market.xiaomi.com
+sf2.market.xiaomi.com
+sf3.market.xiaomi.com
+log.market.xiaomi.com
+
+# --- 小米广告配置 / 行为追踪 ---
+sdkconfig.ad.xiaomi.com
+sdkconfig.ad.rus.xiaomi.com
+sdkconfig.ad.intl.xiaomi.com
+sdkconfig.ad.india.xiaomi.com
+tracking.miui.com
+tracking.rus.miui.com
+tracking.intl.miui.com
+tracking.india.miui.com
+
+# #####################################################################
+# 亿帆广告 SDK (com.yfanads.android.adx.*)
+# #####################################################################
+adx-data.yfanads.com
+api.yfanads.com
+log.yfanads.com
+tracker.yfanads.com
+reward.yfanads.cn
+yfanads.com
+
+# #####################################################################
+# 快手广告 (kwad / adkwai / adukwai)
+# 注意 .cn 和 .com 两个域都要拦(实测走的是 open.e.kuaishou.cn)
+# #####################################################################
+open.e.kuaishou.cn
+open.e.kuaishou.com
+kuaishou.cn
+kuaishou.com
+adkwai.com
+adukwai.com
+p66-ad.adkwai.com
+p1-lm.adukwai.com
+
+# #####################################################################
+# 穿山甲 / 字节 广告 (Pangle / GroMore / CSJ / 火山)
+# 实测漏网: log-api.pangolin-sdk-toutiao.com, apmplus.volces.com
+# #####################################################################
+pangolin-sdk-toutiao.com
+pangolin-sdk-toutiao1.com
+pangolin-sdk-toutiao-b.com
+log-api.pangolin-sdk-toutiao.com
+api-access.pangolin-sdk-toutiao.com
+api-access.pangolin-sdk-toutiao1.com
+api-access.pangolin-sdk-toutiao-b.com
+gromore.pangolin-sdk-toutiao.com
+pglstatp-toutiao.com
+ad.toutiao.com
+phoniex.toutiao.com
+www.toutiaopage.com
+www.pangle.cn
+ctobsnssdk.com
+log.snssdk.com
+rtlog.snssdk.com
+rtapplog.snssdk.com
+applog.snssdk.com
+i.snssdk.com
+snssdk.com
+applog.bytedance.net
+cdn-tos-cn.bytedance.net
+scc.bytedance.com
+bytedance.net
+apmplus.volces.com
+volces.com
+sf1-amtos-cdn.bytesmanager.com
+bytesmanager.com
+
+# #####################################################################
+# 百度广告 (hmma / mobads / cpro / union / pos)
+# #####################################################################
+hmma.baidu.com
+mobads.baidu.com
+mobads-logs.baidu.com
+feed-image.baidu.com
+cpro.baidu.com
+cpro.baidustatic.com
+cpro2.baidustatic.com
+union.baidu.com
+pos.baidu.com
+wn.pos.baidu.com
+nsclick.baidu.com
+cbjs.baidu.com
+ubmcmm.baidustatic.com
+# 广点通广告图 CDN(实测漏网)
+ugdtimg.com
+pgdt.ugdtimg.com
+adsmind.ugdtimg.com
+
+# #####################################################################
+# 腾讯优量汇 / 广告 (gdt)
+# #####################################################################
+win.gdt.qq.com
+ipv4.gdt.qq.com
+ipv6.gdt.qq.com
+gdt.qq.com
+public.gdtimg.com
+gdtimg.com
+sdk.e.qq.com
+e.qq.com
+yybaddsp.3g.qq.com
+
+# #####################################################################
+# 其它广告联盟/推广平台(实测出现)
+# #####################################################################
+xadsmartget.adgain.cn
+adgain.cn
+# 红果/番茄系接口(实测出现在红果被安装之前)
+readnos.com
+# 迅雷系 CDN —— 实测 00:03:40~00:03:48 密集出现, 紧接着 00:03:49 红果被装上
+sandai.net
+# 小米 P2P / 加速下载集群 —— 与 pfga-accelerate 同一时刻出现
+comfylink.com
+# 微信直播 CDN(实测出现在快手极速版被安装之前)
+wxlivecdn.com
+
+# #####################################################################
+# 华为广告 SDK
+# #####################################################################
+pps.huawei.com
+hwpps.huawei.com
+
+# #####################################################################
+# 友盟统计 / Bugly(实测漏网: ulogs.umeng.com / ulogs.umengcloud.com)
+# #####################################################################
+ulogs.umeng.com
+ulogs.umengcloud.com
+log.umsns.com
+pslog.umeng.com
+plbslog.umeng.com
+sss.umeng.com
+ucc.umeng.com
+ccs.umeng.com
+alogus.umeng.com
+alogsus.umeng.com
+mobile.umeng.com
+aspect-upush.umeng.com
+utoken.umeng.com
+ai.login.umeng.com
+astat.bugly.qcloud.com
+android.bugly.qq.com
+
+# #####################################################################
+# 京东系 (用户授权: "该封封, 我买东西时也不开 VPN")
+# 整族封禁 —— 包括 jd.com 本身, 所以京东 App 在拦截开启时会不可用。
+# 想恢复: 在 App 界面把需要的域名点「放行」(优先级高于本表), 或关掉拦截。
+# #####################################################################
+jd.com
+360buyimg.com
+360buy.com
+jingdong.com
+jd.hk
+3.cn
+# 广告投放与追踪
+dsp-x.jd.com
+im-x.jd.com
+img-x.jd.com
+union-click.jd.com
+c0.3.cn
+x.jd.com
+
+# #####################################################################
+# 第二轮补充: 运行时日志里新发现的"高频放行"域名
+# 依据: 2026-10-17 20:26~20:28 那一轮, 下列域名与广告加载同时出现,
+#       且都不属于运动世界自有后端(iydsj.com)或定位(amap.com)。
+#       (app 内日志里它们的状态是 ALLOW、不在原黑名单中)
+# #####################################################################
+
+# 天幕广告平台
+tianmu.mobi
+
+# zztfly.com 整族(广告投放 / 上报 / 推送, 每轮 27+ 次)
+zztfly.com
+
+# 上报类
+idazhe.net
+
+# 中国移动应用商场推广位
+mmarket.com
+
+# 腾讯广告埋点(注意: 不能封父域 beacon.qq.com,
+#   因为 otheve.beacon.qq.com 是腾讯通用遥测, QQ/微信都在用)
+aeventlog.beacon.qq.com
+
+# 百度推广/统计
+bes-mtj.baidu.com
+mtj.baidu.com
+udpolimenew.baidu.com
+
+# 其它上报/指标
+cxkfwn.com
+metrics1-drcn.dt.dbankcloud.cn
+
+# #####################################################################
+# 通用追踪 / 广告平台
+# #####################################################################
+admaster.com.cn
+doubleclick.net
+applovin.com
+unityads.unity3d.com
+ironsrc.com
+adjust.com
+appsflyer.com

@@ -1,6 +1,6 @@
 # ChainBlock · 链式安装拦截
 
-由deepseek harness开发
+由deepseek harness开发<br>
 一个**无需 root** 的 Android 本地网络拦截器,专门用来阻断国产 App 通过
 deeplink 拉起「小米应用商店」后**静默安装推广 App** 的行为。
 
